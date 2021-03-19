@@ -11,7 +11,9 @@ pollcsv = os.path.join('Resources', 'election_data')
 total_vote_count = 0
 candidates = []
 vote_count = []
-vote_percent = []
+percentages = []
+max_votes = vote_count[0]
+max_index = 0
 
 # open the csv file to set path
 with open(pollcsv, newline="") as csvfile:
@@ -32,6 +34,39 @@ with open(pollcsv, newline="") as csvfile:
             candidates.append(row[2])
             total_vote_count.append(0)
 
-    
+    #Percentage of votes and winner
+    for count in range(len(candidates)):
+        vote_percent = vote_count[count]/number_votes*100
+        percentages.append(vote_percent)
+        if vote_count[count] > max_votes:
+            max_votes = vote_count[count]
+            print(max_votes)
+            max_index = count
+    winner = candidates[max_index]
 
-        
+    percentages = [round(i,2) for i in percentages]
+
+#Results
+    print('.........................................')
+    print("Election Results")
+    print('.........................................')
+    print("Total Votes: " + str(count))
+    print('.........................................')
+    for count in range(len(candidates)):
+        print(candidates[count] + ": " + str(percentages[count]) + "% (" + str(vote_count[count]) + ")")
+    print('.........................................')
+    print("The Winner is: + {winner}"
+    print('.........................................')
+
+# Text File
+with open ('Election Results.txt', 'w') as text:
+    text.write(".............................................\n")
+    text.write("    Election Results"+ "\n")
+    text.write("...............................................\n\n")
+    text.write("    Total Votes: " + str(count) + "\n")
+    text.write("...............................................\n\n")
+    for count in range(len(candidates)):
+        print(candidates[count] + ": " + str(percentages[count]) + "% (" + str(vote_count[count]) + ")" +"\n")
+    text.write("...............................................\n\n")
+    text.write("    The Winner is {winner}\n")
+    text.write("...............................................\n\n")
