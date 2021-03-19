@@ -5,14 +5,14 @@ import os
 import csv
 
 # create path for csv file
-pollcsv = os.path.join('Resources', 'election_data')
+pollcsv = os.path.join('Resources', 'election_data.csv')
 
 # create list for data
-total_vote_count = 0
 candidates = []
 vote_count = []
+number_votes = 0
 percentages = []
-max_votes = vote_count[0]
+max_votes = 0
 max_index = 0
 
 # open the csv file to set path
@@ -22,18 +22,18 @@ with open(pollcsv, newline="") as csvfile:
 
     #count the number of votes
     for row in csv_reader:
-        total_vote_count = total_vote_count + 1
+        number_votes = number_votes + 1
         #Candidate list
-        candidates = row[2]
+        candidate = row[2]
+        
 
-        if(candidates in candidates):
-            candidates_index = candidates.index(candidates)
-            vote_count[candidates_index] = vote_count[candidates_index] + 1
+        if candidate in candidates:
+            candidate_index = candidates.index(candidates)
+            vote_count[candidate_index] = vote_count[candidate_index] + 1
 
         else:
             candidates.append(row[2])
-            total_vote_count.append(0)
-
+            
     #Percentage of votes and winner
     for count in range(len(candidates)):
         vote_percent = vote_count[count]/number_votes*100
@@ -55,7 +55,7 @@ with open(pollcsv, newline="") as csvfile:
     for count in range(len(candidates)):
         print(candidates[count] + ": " + str(percentages[count]) + "% (" + str(vote_count[count]) + ")")
     print('.........................................')
-    print("The Winner is: + {winner}"
+    print("The Winner is: + {winner}")
     print('.........................................')
 
 # Text File
