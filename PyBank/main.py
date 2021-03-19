@@ -73,3 +73,17 @@ with open('Financial_analysis.txt', 'w') as text:
     text.write("      Greatest Increase in Profits: " + str(Increase_date) + " ($" + str(largest_increase_profits) + ")\n")
     text.write("      Greatest Decrease in Profits: " + str(decrease_date) + " ($" + str(largest_decrease_profits) + ")\n")
     text.write(".............................................\n")
+
+#output text file to analysis folder
+analysis_file = os.path.join("analysis", "Financial_analysis.txt")
+with open(analysis_file, "w") as out:
+    out.write(".............................................\n")
+    out.write("   Financial Analysis"+ "\n")
+    out.write("...............................................\n\n")
+    out.write("      Total Months: " + str(count) + "\n")    
+    out.write("      Total Profits: " + "$" + str(total_profit) + "\n")
+    out.write("      Average Change: " + "$" + str(int(average_change_profits)) + "\n")
+    out.write("      Greatest Increase in Profits: " + str(Increase_date) + " ($" + str(largest_increase_profits) + ")\n")
+    out.write("      Greatest Decrease in Profits: " + str(decrease_date) + " ($" + str(largest_decrease_profits) + ")\n")
+    out.write(".............................................\n")
+    
