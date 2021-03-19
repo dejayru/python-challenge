@@ -21,7 +21,7 @@ inital_profit = 0
 
 # open the csv file to set path
 with open(bankcsv, newline='') as csvfile:
-    csv_reader = csv.reader(csv_reader, delimiter=',')
+    csv_reader = csv.reader(csvfile, delimiter=',')
     csv_headers = next(csv_reader)
 
     #count the number of months in data file
