@@ -5,7 +5,7 @@ import os
 import csv
 
 # create path for csv file
-bankcsv = os.path.join('..', 'Resources', 'budget_data.csv')
+bankcsv = os.path.join('Resources', 'budget_data.csv')
 
 
 # create list for data
@@ -20,8 +20,8 @@ total_change_profits = 0
 inital_profit = 0
 
 # open the csv file to set path
-with open(bankcsv, 'r') as csvfile:
-    csv_reader = next(csv_reader, delimiter=',')
+with open(bankcsv, newline='') as csvfile:
+    csv_reader = csv.reader(csv_reader, delimiter=',')
     csv_headers = next(csv_reader)
 
     #count the number of months in data file
@@ -61,6 +61,15 @@ with open(bankcsv, 'r') as csvfile:
     print("Greatest Increase in Profits: " + str(Increase_date) + " ($" + str(largest_increase_profits) + ")")
     print("Greatest Decrease in Profits: " + str(decrease_date) + " ($" + str(largest_decrease_profits) + ")")
     print('.........................................')
-    
-#output as text
 
+#output as text
+with open('Financial_analysis.txt', 'w') as text:
+    text.write(".............................................\n")
+    text.write("   Financial Analysis"+ "\n")
+    text.write("...............................................\n\n")
+    text.write("      Total Months: " + str(count) + "\n")    
+    text.write("      Total Profits: " + "$" + str(total_profit) + "\n")
+    text.write("      Average Change: " + "$" + str(int(average_change_profits)) + "\n")
+    text.write("      Greatest Increase in Profits: " + str(Increase_date) + " ($" + str(largest_increase_profits) + ")\n")
+    text.write("      Greatest Decrease in Profits: " + str(decrease_date) + " ($" + str(largest_decrease_profits) + ")\n")
+    text.write(".............................................\n")
