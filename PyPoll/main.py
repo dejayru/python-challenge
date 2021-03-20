@@ -75,3 +75,18 @@ with open ('Election Results.txt', 'w') as text:
     text.write("...............................................\n\n")
     text.write("    The Winner is {winner}\n")
     text.write("...............................................\n\n")
+
+#output text file to analysis folder
+election_results_file = os.path.join("analysis", "Election_Results.txt")
+with open(election_results_file, "w") as out:
+    out.write(".............................................\n")
+    out.write("    Election Results"+ "\n")
+    out.write("...............................................\n\n")
+    out.write("    Total Votes: " + str(vote_count) + "\n")
+    out.write("...............................................\n\n")
+    for count in candidates_votes:
+        percentages = candidates_votes[count] / vote_count * 100
+        out.write(f"{count}: {percentages}% ({candidates_votes[count]})")
+    out.write("...............................................\n\n")
+    out.write("    The Winner is {winner}\n")
+    out.write("...............................................\n\n")
