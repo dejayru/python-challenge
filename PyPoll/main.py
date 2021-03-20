@@ -9,11 +9,13 @@ pollcsv = os.path.join('Resources', 'election_data.csv')
 
 # create list for data
 candidates = []
-vote_count = []
-number_votes = 0
+candidates_votes = {}
+vote_count = 0
+winner_votes = 0
 percentages = []
 max_votes = 0
 max_index = 0
+
 
 # open the csv file to set path
 with open(pollcsv, newline="") as csvfile:
@@ -22,40 +24,42 @@ with open(pollcsv, newline="") as csvfile:
 
     #count the number of votes
     for row in csv_reader:
-        number_votes = number_votes + 1
+        vote_count = vote_count + 1
+        candidates_name = row[2]
         #Candidate list
-        candidate = row[2]
+        if (row[2]) not in candidates:
+            candidates.append(row[2])
+            candidates_votes[candidates_name] = 0
+         
+        candidates_votes[candidates_name] = candidates_votes[candidates_name] + 1
+        
         
 
-        if candidate in candidates:
-            candidate_index = candidates.index(candidates)
-            vote_count[candidate_index] = vote_count[candidate_index] + 1
-
-        else:
-            candidates.append(row[2])
-            
+    #print(vote_count)    
+    #print(candidates_votes)
+    #print(candidates)                         
     #Percentage of votes and winner
-    for count in range(len(candidates)):
-        vote_percent = vote_count[count]/number_votes*100
-        percentages.append(vote_percent)
-        if vote_count[count] > max_votes:
-            max_votes = vote_count[count]
-            print(max_votes)
-            max_index = count
-    winner = candidates[max_index]
+    for count in candidates_votes:
+        percentages = candidates_votes[count] / vote_count * 100
+        #print(count)
+        
+        if candidates_votes[count] > winner_votes:
+            winner = count
+            winner_votes = candidates_votes[count]
 
-    percentages = [round(i,2) for i in percentages]
+    
 
 #Results
     print('.........................................')
     print("Election Results")
     print('.........................................')
-    print("Total Votes: " + str(count))
+    print("Total Votes: " + str(vote_count))
     print('.........................................')
-    for count in range(len(candidates)):
-        print(candidates[count] + ": " + str(percentages[count]) + "% (" + str(vote_count[count]) + ")")
+    for count in candidates_votes:
+        percentages = candidates_votes[count] / vote_count * 100
+        print(f"{count}: {percentages}% ({candidates_votes[count]})")
     print('.........................................')
-    print("The Winner is: + {winner}")
+    print(f"The Winner is:  {winner}")
     print('.........................................')
 
 # Text File
@@ -63,10 +67,11 @@ with open ('Election Results.txt', 'w') as text:
     text.write(".............................................\n")
     text.write("    Election Results"+ "\n")
     text.write("...............................................\n\n")
-    text.write("    Total Votes: " + str(count) + "\n")
+    text.write("    Total Votes: " + str(vote_count) + "\n")
     text.write("...............................................\n\n")
-    for count in range(len(candidates)):
-        print(candidates[count] + ": " + str(percentages[count]) + "% (" + str(vote_count[count]) + ")" +"\n")
+    for count in candidates_votes:
+        percentages = candidates_votes[count] / vote_count * 100
+        text.write(f"{count}: {percentages}% ({candidates_votes[count]})")
     text.write("...............................................\n\n")
     text.write("    The Winner is {winner}\n")
     text.write("...............................................\n\n")
